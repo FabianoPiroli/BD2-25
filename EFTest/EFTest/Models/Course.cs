@@ -1,8 +1,12 @@
-﻿namespace EFTest.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EFTest.Models
 {
     public class Course
     {
-        public int Id { get; set; }
+        [Key]
+        public int ID { get; set; }
         public string? Name { get; set; }
+        public List<StudentCourses>? StudentCourses { get; set; }
     }
 }

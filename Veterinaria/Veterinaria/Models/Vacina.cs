@@ -10,5 +10,6 @@ namespace Veterinaria.Models
         public DateTime DataAplicacao { get; set; }
         public int AnimalId { get; set; }
         [ForeignKey(nameof(AnimalId))]
+        public Animal? Animal { get; set; }
     }
 }

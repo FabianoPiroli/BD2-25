@@ -12,6 +12,13 @@ builder.Services.AddDbContext<VetContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("VetContext")));
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<VetContext>();
+    DbInitializer.Initialize(context);
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

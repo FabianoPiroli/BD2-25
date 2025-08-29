@@ -1,5 +1,6 @@
 using Veterinaria.Data;
 using Microsoft.EntityFrameworkCore;
+using Veterinaria.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,11 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<VetContext>();
     DbInitializer.Initialize(context);
+    if (!context.TiposAnimais.Any(t => t.Especie == "Cachorro"))
+    {
+        context.TiposAnimais.Add(new TipoAnimal { Especie = "Cachorro", Descricao = "Animal de estimação popular" });
+        context.SaveChanges();
+    }
 }
 
 // Configure the HTTP request pipeline.

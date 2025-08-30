@@ -1,4 +1,5 @@
 using EFTest.Data;
+using EFTest.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,10 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<SchoolContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SchoolContext")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("SchoolContext")));
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

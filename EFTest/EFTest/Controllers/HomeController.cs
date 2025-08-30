@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using EFTest.Data;
 using EFTest.Models;
+using EFTest.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EFTest.Controllers
@@ -8,20 +9,68 @@ namespace EFTest.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger; // Variaveis privadas sempre tem _(inderline) no inicio por convenção (boas práticas)
-        private readonly SchoolContext _context;
-
+        private readonly IStudentRepository _studentRepository;
         public HomeController
             (ILogger<HomeController> logger,
-            SchoolContext context
+            IStudentRepository studentRepository
         )
         {
             _logger = logger;
-            _context = context;
+            _studentRepository = studentRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Students.ToList());
+            return View(await _studentRepository.GetAll());
+        }
+
+        public async Task<IActionResult> Create(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentRepository.Create(student);
+                return RedirectToAction("Index");
+            }
+            return View(student);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var student = await _studentRepository.GetById(id);
+            if(student == null)
+            {
+                return NotFound();
+            }
+            await _studentRepository.Delete(student);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentRepository.Update(student);
+                return RedirectToAction("Index");
+            }
+            return View(student);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var student = await _studentRepository.GetById(id);
+            if(student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
         }
 
         public IActionResult Privacy()

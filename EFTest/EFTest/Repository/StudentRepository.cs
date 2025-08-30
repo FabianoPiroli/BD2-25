@@ -1,5 +1,6 @@
 ﻿using EFTest.Data;
 using EFTest.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFTest.Repository
 {
@@ -10,34 +11,40 @@ namespace EFTest.Repository
         {
             _context = context;
         }
-        public void Create(Student student)
+        public async Task Create(Student student)
         {
-            throw new NotImplementedException();
+            await _context.Students.AddAsync(student);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(Student student)
+        public async Task Delete(Student student)
         {
-            throw new NotImplementedException();
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
         }
 
-        public List<Student> GetAll()
+        public async Task<List<Student>> GetAll()
         {
-            throw new NotImplementedException();
+            var data = await _context.Students.ToListAsync();
+            return data;
         }
 
-        public Student? GetById(int id)
+        public async Task<Student?> GetById(int id)
         {
-            throw new NotImplementedException();
+            var student = await _context.Students.Where(s => s.ID ==id).FirstOrDefaultAsync();
+            return student;
         }
 
-        public List<Student> GetByName(string name)
+        public async Task<List<Student>> GetByName(string name)
         {
-            throw new NotImplementedException();
+            var students = await _context.Students.Where(s => s.FirstMidName!.ToLower().Contains(name.ToLower())).ToListAsync();
+            return students;
         }
 
-        public void Update(Student student)
+        public async Task Update(Student student)
         {
-            throw new NotImplementedException();
+            _context.Students.Update(student);
+            _context.SaveChanges();
         }
     }
 }

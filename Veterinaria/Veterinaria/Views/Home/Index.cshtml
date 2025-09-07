@@ -20,6 +20,8 @@
                 <th>Cor</th>
                 <th>Peso</th>
                 <th>Altura</th>
+                <th>Excluir</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +36,19 @@
                     <td>@a.Cor</td>
                     <td>@a.Peso</td>
                     <td>@a.Altura</td>
+                    <td>
+                        <form asp-controller="Home" asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@a.Id" />
+                            <button type="submit" class="btn btn-danger onclick="return confirm('Confirma a exclusão do estudante?');">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-controller="Home" asp-action="Update" asp-route-id="@a.Id" class="btn btn-primary">
+                            Editar
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

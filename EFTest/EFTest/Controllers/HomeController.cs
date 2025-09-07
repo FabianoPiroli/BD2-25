@@ -8,7 +8,7 @@ namespace EFTest.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger; // Variaveis privadas sempre tem _(inderline) no inicio por convenção (boas práticas)
+        private readonly ILogger<HomeController> _logger; // Variaveis privadas sempre tem _(underline) no inicio por convenção (boas práticas)
         private readonly IStudentRepository _studentRepository;
         public HomeController
             (ILogger<HomeController> logger,
@@ -24,6 +24,7 @@ namespace EFTest.Controllers
             return View(await _studentRepository.GetAll());
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(Student student)
         {
             if (ModelState.IsValid)

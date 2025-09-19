@@ -1,6 +1,7 @@
-using Veterinaria.Data;
 using Microsoft.EntityFrameworkCore;
+using Veterinaria.Data;
 using Veterinaria.Models;
+using Veterinaria.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,10 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<VetContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("VetContext")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("VetContext")));
+
+builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

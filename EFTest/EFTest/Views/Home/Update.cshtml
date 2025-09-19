@@ -15,6 +15,8 @@
             <div asp-validation-summary="ModelOnly" 
                 class="text-danger"></div>
 
+            <input type="hidden" asp-for="ID" />
+
             <div class="form-group">
                 <label asp-for="FirstMidName"
                     class="control-label"></label>
@@ -43,7 +45,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Salvar"
+                <input type="submit" value="Salvar Alterações"
                        class="btn btn-primary" />
             </div>
         </form>

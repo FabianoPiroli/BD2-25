@@ -6,29 +6,25 @@ namespace Veterinaria.Repository
 {
     public class AnimalRepository : IAnimalRepository
     {
-        private readonly VetContext _context;
+        private readonly VetContext? _context;
         public AnimalRepository(VetContext context)
         {
             _context = context;
         }
         public async Task Create(Animal animal)
         {
-            _context.Animais.Add(animal);
+            await _context.Animais.AddAsync(animal);
             await _context.SaveChangesAsync();
         }
         public async Task Update(Animal animal)
         {
             _context.Animais.Update(animal);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
-        public async Task Delete(int id)
+        public async Task Delete(Animal animal)
         {
-            var animal = await _context.Animais.FindAsync(id);
-            if (animal != null)
-            {
-                _context.Animais.Remove(animal);
-                await _context.SaveChangesAsync();
-            }
+            _context.Animais.Remove(animal);
+            await _context.SaveChangesAsync();
         }
         public async Task<Animal?> GetById(int id)
         {

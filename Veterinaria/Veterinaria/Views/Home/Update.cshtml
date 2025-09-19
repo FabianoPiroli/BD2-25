@@ -15,6 +15,9 @@
                 <div asp-validation-summary="ModelOnly"
                  class="text-danger"></div>
 
+            <input type="hidden" asp-for="Id" />
+
+
             <div class="form-group">
                 <label asp-for="Nome"
                        class="control-label"></label>
@@ -25,12 +28,9 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="TipoAnimal"
-                       class="control-label"></label>
-                <input asp-for="TipoAnimal"
-                       class="form-control" />
-                <span asp-validation-for="TipoAnimal"
-                      class="text-danger"></span>
+                <label asp-for="TipoAnimalId" class="control-label"></label>
+                <select asp-for="TipoAnimalId" class="form-control" asp-items="ViewBag.TiposAnimais"></select>
+                <span asp-validation-for="TipoAnimalId" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -80,7 +80,7 @@
 
             <div class="form-group">
                 <input type="submit"
-                       value="Salvar"
+                       value="Salvar Alterações"
                        class="btn btn-primary" />
             </div>
             </form>

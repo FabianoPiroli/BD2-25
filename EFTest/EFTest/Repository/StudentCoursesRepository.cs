@@ -25,14 +25,14 @@ namespace EFTest.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<StudentCourses?> Get(int studentId, int courseId)
+        public async Task<List<StudentCourses?>> Get(int studentId, int courseId)
         {
             var data = await _context.StudentCourses
                 .Include(x => x.Course)
                 .Include(x => x.Student)
                 .Where(w => w.StudentID == studentId && 
                             w.CourseID == courseId)
-                .FirstOrDefaultAsync();
+                .ToListAsync();
             return data;
         }
 

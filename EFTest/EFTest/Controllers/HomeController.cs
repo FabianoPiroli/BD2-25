@@ -52,6 +52,17 @@ namespace EFTest.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var student = await _studentRepository.GetById(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return View(student);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Update(Student student)
         {
@@ -59,17 +70,6 @@ namespace EFTest.Controllers
             {
                 await _studentRepository.Update(student);
                 return RedirectToAction("Index");
-            }
-            return View(student);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Update(int id)
-        {
-            var student = await _studentRepository.GetById(id);
-            if(student == null)
-            {
-                return NotFound();
             }
             return View(student);
         }

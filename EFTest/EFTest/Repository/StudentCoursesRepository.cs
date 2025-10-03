@@ -6,11 +6,11 @@ namespace EFTest.Repository
 {
     public class StudentCoursesRepository : IStudentCoursesRepository
     {
-        private readonly SchoolContext? _context;
+        private readonly SchoolContext _context;
 
         public StudentCoursesRepository(SchoolContext? context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task Create(StudentCourses studentcourses)
@@ -33,7 +33,7 @@ namespace EFTest.Repository
                 .Where(w => w.StudentID == studentId && 
                             w.CourseID == courseId)
                 .ToListAsync();
-            return data;
+            return data.Cast<StudentCourses?>().ToList();
         }
 
         public async Task<List<StudentCourses>> GetAll()
@@ -52,7 +52,7 @@ namespace EFTest.Repository
                 .Include(x => x.Student)
                 .Where(w => w.CourseID == courseId)
                 .ToListAsync();
-            return data;
+            return data.Cast<StudentCourses?>().ToList();
         }
 
         public async Task<List<StudentCourses>> GetByCourseName(string name)
@@ -72,7 +72,7 @@ namespace EFTest.Repository
                 .Include(x => x.Student)
                 .Where(w => w.StudentID == studentId)
                 .ToListAsync();
-            return data;
+            return data.Cast<StudentCourses?>().ToList();
         }
 
         public async Task<List<StudentCourses>> GetByStudentName(string name)

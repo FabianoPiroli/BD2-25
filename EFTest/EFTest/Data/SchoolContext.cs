@@ -20,6 +20,8 @@ namespace EFTest.Data
         {
             modelBuilder.Entity<Student>().ToTable("Student");
             modelBuilder.Entity<Course>().ToTable("Course");
+            modelBuilder.Entity<StudentCourses>()
+                        .HasKey(sc => new { sc.StudentID, sc.CourseID });
         }
     }
 }

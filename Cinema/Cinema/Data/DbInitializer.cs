@@ -14,14 +14,14 @@ namespace Cinema.Data
             }
             var persons = new Person[]
             {
-                new Person{Name="Carson Alexander", BirthDate=DateTime.Parse("2005-09-01")},
-                new Person{Name="Meredith Alonso", BirthDate=DateTime.Parse("2002-09-01")},
-                new Person{Name="Arturo Anand", BirthDate=DateTime.Parse("2003-09-01")},
-                new Person{Name="Gytis Barzdukas", BirthDate=DateTime.Parse("2002-09-01")},
-                new Person{Name="Yan Li", BirthDate=DateTime.Parse("2002-09-01")},
-                new Person{Name="Peggy Justice", BirthDate=DateTime.Parse("2001-09-01")},
-                new Person{Name="Laura Norman", BirthDate=DateTime.Parse("2003-09-01")},
-                new Person{Name="Nino Olivetto", BirthDate=DateTime.Parse("2005-09-01")}
+                new Person{FirstName="Carson", LastName="Alexander", BirthDate=DateTime.Parse("2005-09-01")},
+                new Person{FirstName="Meredith", LastName="Alonso", BirthDate=DateTime.Parse("2002-09-01")},
+                new Person{FirstName="Arturo", LastName="Anand", BirthDate=DateTime.Parse("2003-09-01")},
+                new Person{FirstName="Gytis", LastName="Barzdukas", BirthDate=DateTime.Parse("2002-09-01")},
+                new Person{FirstName="Yan", LastName="Li", BirthDate=DateTime.Parse("2002-09-01")},
+                new Person{FirstName="Peggy", LastName="Justice", BirthDate=DateTime.Parse("2001-09-01")},
+                new Person{FirstName="Laura", LastName="Norman", BirthDate=DateTime.Parse("2003-09-01")},
+                new Person{FirstName="Nino", LastName="Olivetto", BirthDate=DateTime.Parse("2005-09-01")}
             };
             foreach (Person s in persons)
             {

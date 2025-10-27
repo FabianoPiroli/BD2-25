@@ -44,13 +44,13 @@ namespace Veterinaria.Data
 
             var vacinas = new Vacina[]
             {
-                new Vacina { Nome = "Vacina Antirrábica", DataAplicacao = new DateTime(2023, 1, 10), AnimalId = animais[0].Id },
-                new Vacina { Nome = "Vacina V8", DataAplicacao = new DateTime(2023, 2, 20), AnimalId = animais[0].Id },
-                new Vacina { Nome = "Vacina V10", DataAplicacao = new DateTime(2023, 3, 15), AnimalId = animais[1].Id },
-                new Vacina { Nome = "Vacina Gripe", DataAplicacao = new DateTime(2023, 4, 10), AnimalId = animais[2].Id },
-                new Vacina { Nome = "Vacina Mixomavirose", DataAplicacao = new DateTime(2023, 5, 5), AnimalId = animais[3].Id },
-                new Vacina { Nome = "Vacina Cinomose", DataAplicacao = new DateTime(2023, 6, 12), AnimalId = animais[4].Id },
-                new Vacina { Nome = "Vacina Leucemia Felina", DataAplicacao = new DateTime(2023, 7, 18), AnimalId = animais[5].Id }
+                new Vacina { Nome = "Vacina Antirrábica"},
+                new Vacina {Nome = "Vacina V8"},
+                new Vacina {Nome = "Vacina V10"},
+                new Vacina {Nome = "Vacina Gripe"},
+                new Vacina {Nome = "Vacina Mixomavirose"},
+                new Vacina {Nome = "Vacina Cinomose"},
+                new Vacina {Nome = "Vacina Leucemia Felina"}
             };
             foreach (var vacina in vacinas)
             {

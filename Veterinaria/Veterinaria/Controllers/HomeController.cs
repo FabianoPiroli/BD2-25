@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Veterinaria.Data;
@@ -11,19 +12,38 @@ namespace Veterinaria.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IAnimalRepository _animalRepository;
+        private readonly VetContext _context;
+
+        /*
+        Plano (pseudocódigo detalhado):
+        - Adicionar um campo privado para o DbContext usado no projeto (aqui: `VeterinariaContext _context`).
+        - Modificar o construtor para receber também o `VeterinariaContext` via injeção de dependência.
+        - Atribuir o parâmetro do construtor ao campo `_context`.
+        - Manter uso atual de `_animalRepository`.
+        - Com o `_context` disponível, a linha que monta `ViewBag.TiposAnimais` passa a compilar corretamente.
+        */
 
         public HomeController
             (ILogger<HomeController> logger,
-            IAnimalRepository animalRepository
+            IAnimalRepository animalRepository,
+            VetContext context
         )
         {
             _logger = logger;
             _animalRepository = animalRepository;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
             return View(await _animalRepository.GetAll());
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.TiposAnimais = new SelectList(_context.TiposAnimais, "Id", "Especie");
+            return View();
         }
 
         [HttpPost]
@@ -34,13 +54,8 @@ namespace Veterinaria.Controllers
                 await _animalRepository.Create(animal);
                 return RedirectToAction("Index");
             }
+            ViewBag.TiposAnimais = new SelectList(_context.TiposAnimais, "Id", "Especie", animal.TipoAnimalId);
             return View(animal);
-        }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
         }
 
         [HttpPost]
@@ -54,17 +69,6 @@ namespace Veterinaria.Controllers
             return View(animal);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Update(Animal animal)
-        {
-            if (ModelState.IsValid)
-            {
-                await _animalRepository.Update(animal);
-                return RedirectToAction("Index");
-            }
-            return View(animal);
-        }
-
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
@@ -73,8 +77,22 @@ namespace Veterinaria.Controllers
             {
                 return NotFound();
             }
+            ViewBag.TiposAnimais = new SelectList(_context.TiposAnimais, "Id", "Especie", animal.TipoAnimalId);
             return View(animal);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Animal animal)
+        {
+            if (ModelState.IsValid)
+            {
+                await _animalRepository.Update(animal);
+                return RedirectToAction("Index");
+            }
+            ViewBag.TiposAnimais = new SelectList(_context.TiposAnimais, "Id", "Especie", animal.TipoAnimalId);
+            return View(animal);
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -1,0 +1,45 @@
+﻿@model ICollection<Veterinaria.Models.Vacina>
+
+@{
+    ViewData["Title"] = "Vacinas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">
+        @Model.Count vacinas.
+    </h1>
+    
+    <a asp-controller="Vacina" asp-action="Create" class="btn btn-primary">
+        Nova Vacina
+    </a>
+    <table class="table table-responsive table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.Id</td>
+                    <td>@a.Nome</td>
+                    <td>
+                        <form asp-controller="Vacina" asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@a.Id" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Confirma a exclusão da vacina?');">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-controller="Vacina" asp-action="Update" asp-route-id="@a.Id" class="btn btn-primary">
+                            Editar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

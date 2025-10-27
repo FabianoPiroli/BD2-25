@@ -25,17 +25,17 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="TipoAnimal"
-                       class="control-label"></label>
-                <input asp-for="TipoAnimal"
-                       class="form-control" />
-                <span asp-validation-for="TipoAnimal"
+                <label asp-for="TipoAnimalId"
+                       class="control-label">Espécie</label>
+                <select asp-for="TipoAnimalId"
+                        class="form-control" asp-items="ViewBag.TiposAnimais"></select>
+                <span asp-validation-for="TipoAnimalId"
                       class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="DtNascimento"
-                       class="control-label"></label>
+                       class="control-label">Data de Nascimento</label>
                 <input asp-for="DtNascimento"
                        class="form-control" />
                 <span asp-validation-for="DtNascimento"
